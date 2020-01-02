@@ -37,6 +37,23 @@
     <Compile Include="app\views.py" />
     <Compile Include="app\__init__.py" />
     <Compile Include="app\migrations\__init__.py" />
+    <Compile Include="DashBoard\admin.py" />
+    <Compile Include="DashBoard\apps.py" />
+    <Compile Include="DashBoard\migrations\__init__.py" />
+    <Compile Include="DashBoard\models.py" />
+    <Compile Include="DashBoard\tests.py" />
+    <Compile Include="DashBoard\urls.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DashBoard\views.py" />
+    <Compile Include="DashBoard\__init__.py" />
+    <Compile Include="Login\admin.py" />
+    <Compile Include="Login\apps.py" />
+    <Compile Include="Login\migrations\__init__.py" />
+    <Compile Include="Login\models.py" />
+    <Compile Include="Login\tests.py" />
+    <Compile Include="Login\views.py" />
+    <Compile Include="Login\__init__.py" />
     <Compile Include="manage.py" />
     <Compile Include="HHV_FABRICS\__init__.py" />
     <Compile Include="HHV_FABRICS\settings.py" />
@@ -44,8 +61,14 @@
     <Compile Include="HHV_FABRICS\wsgi.py" />
     <Compile Include="Products\admin.py" />
     <Compile Include="Products\apps.py" />
+    <Compile Include="Products\Forms.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Products\migrations\__init__.py" />
     <Compile Include="Products\models.py" />
+    <Compile Include="Products\test.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Products\tests.py" />
     <Compile Include="Products\urls.py">
       <SubType>Code</SubType>
@@ -63,14 +86,35 @@
     <Folder Include="app\static\app\scripts\" />
     <Folder Include="app\templates\" />
     <Folder Include="app\templates\app\" />
+    <Folder Include="DashBoard\" />
+    <Folder Include="DashBoard\migrations\" />
+    <Folder Include="DashBoard\static\" />
+    <Folder Include="DashBoard\static\DashBoard\" />
+    <Folder Include="DashBoard\static\DashBoard\Images\" />
+    <Folder Include="DashBoard\templates\" />
+    <Folder Include="DashBoard\templates\DashBoard\" />
     <Folder Include="HHV_FABRICS\" />
+    <Folder Include="Login\" />
+    <Folder Include="Login\migrations\" />
+    <Folder Include="Login\templates\" />
+    <Folder Include="Login\templates\Login\" />
     <Folder Include="Products\" />
     <Folder Include="Products\migrations\" />
     <Folder Include="Products\templates\" />
     <Folder Include="Products\templates\Products\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DashBoard\static\DashBoard\Images\home.png" />
+    <Content Include="DashBoard\static\DashBoard\Images\images.png" />
+    <Content Include="DashBoard\static\DashBoard\Images\modern-shopping-cart-logo-5E95C07Ass18-seeklogo.com.png" />
+    <Content Include="DashBoard\static\DashBoard\Images\ss333.png" />
+    <Content Include="DashBoard\static\DashBoard\Images\ssswees22.png" />
+    <Content Include="Login\templates\Login\index.html" />
+    <Content Include="Products\templates\Products\AddProducts.html" />
+    <Content Include="DashBoard\templates\DashBoard\DashBoard.html" />
+    <Content Include="Products\templates\Products\form.html" />
     <Content Include="Products\templates\Products\index.html" />
+    <Content Include="Products\templates\Products\ViewProducts.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />

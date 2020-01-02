@@ -1,0 +1,72 @@
+{% extends "app/layout.html" %}
+{% load static %}
+<!--<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">-->
+{% block content %}
+<div class="container-fluid" style="margin-top:5%">
+    <div class="card">
+        <div class="card-header card-header-info">
+            <h5 class="card-title">Product Detail</h5>
+        </div>
+        <div class=" card-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-light">
+                    <thead>
+                    <tr class="text-center">
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Design</th>
+                        <th scope="col">Number of Pieces</th>
+                        <th scope="col">Quantity in stock</th>
+                        <th scope="col">Product price</th>
+                        <th scope="col">Color</th>
+                        <th scope="col">Kameez Fabric</th>
+                        <th scope="col">Shalwar Fabric</th>
+                        <th scope="col">Dupatta Fabric</th>
+                        <th scope="col">Embriody Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for x in Products %}
+                    <tr>
+                        <td class="text-center align-middle">{{ x.0 }}</td>
+                        <td class="text-center align-middle">{{ x.1 }}</td>
+                        <td class="text-center align-middle">{{ x.2 }}</td>
+                        <td class="text-center align-middle">{{ x.3 }}</td>
+                        <td class="text-center align-middle">{{ x.4 }}</td>
+                        <td class="text-center align-middle">{{ x.5 }}</td>
+                        <td class="text-center align-middle">{{ x.6 }}</td>
+                        <td class="text-center align-middle">{{ x.7}}</td>
+                        <td class="text-center align-middle">{{ x.8}}</td>
+                        <td class="text-center align-middle">
+
+                            {% if x.9 == 0 %}
+                            <p>Kameez Front: Yes</p>
+                            {% else %}
+                            <p>Kameez Front: No</p>
+                            {% endif %}
+                            {% if x.10 == 0 %}
+                            <p>Kameez Back: Yes</p>
+                            {% else %}
+                            <p>Kameez Back: No</p>
+                            {% endif %}
+                            {% if x.11 == 0 %}
+                            <p>Dupatta: Yes</p>
+                            {% else %}
+                            <p>Dupatta: No</p>
+                            {% endif %}
+                            {% if x.12 == 0 %}
+                            <p>Shalwar: Yes</p>
+                            {% else %}
+                            <p>Shalwar: No</p>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

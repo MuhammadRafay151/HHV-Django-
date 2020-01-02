@@ -1,0 +1,161 @@
+{% extends "app/layout.html" %}
+{% block content %}
+<style>
+label,p{
+    color: white;
+}
+</style>
+<div class="container">
+    <div class="row vh-100 ">
+        <div class="col align-self-center">
+            <form action="/Products/SubmitProduct/" method="POST">
+                {% csrf_token %}
+                <div class="row justify-content-center">
+                    <div class="col-4">
+                        <div class="d-flex justify-content-center">
+                            <div class="form-group">
+                                <label for="Pname">Product Name</label>
+                                <input type="text" class="form-control" id="Pname" name="PName" required>
+                            </div>
+
+                        </div>
+                        <div class="d-flex justify-content-center">
+                           <div class="form-group col-8">
+                                <label for="ds">Designs</label>
+                                <select class="form-control"  required id="ds" name="Design">
+                                    <option selected disabled value="">Select Designs</option>
+                                    {% for x in Designs%}
+                                    <option value="{{x.0}}">{{x.1}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <div class="form-group">
+                                <label for="NPieces">Number of Pieces</label>
+                                <input type="number" class="form-control" id="NPieces" name="NPieces" required>
+                            </div>
+
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <div class="form-group">
+                                <label for="QStock">Quantity in stock</label>
+                                <input type="number" class="form-control" id="QStock" name="Qstock" required>
+                            </div>
+
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <div class="form-group">
+                                <label for="Price">Product Price</label>
+                                <input type="number" class="form-control" id="Price" name="Price" required>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="col-4 ">
+                        <div class="d-flex justify-content-center">
+                            <div class="form-group col-8">
+                                <label for="color">Color</label>
+                                <select class="form-control" required id="color" name="color">
+                                      <option selected disabled>Select color</option>
+                                   {% for x in data%}
+                                     <option value="{{x.0}}">{{x.1}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <div class="form-group col-8">
+                                <label for="KFabric">Kameez Fabric</label>
+                                <select class="form-control" name="KFabric" required>
+                                     <option selected disabled>Select Fabric</option>
+                                   {% for x in fabric%}
+                                     <option value="{{x.0}}">{{x.1}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <div class="form-group col-8">
+                                <label for="SFabric">Shalwar Fabric</label>
+                                <select class="form-control" required name="SFabric">
+                                     <option selected disabled>Select Fabric</option>
+                                    {% for x in fabric%}
+                                     <option value="{{x.0}}">{{x.1}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <div class="form-group col-8">
+                                <label for="DFabric">Dupatta Fabric</label>
+                                <select name="DFabric" id="DFabric" class="form-control" required >
+                                    <option selected disabled value>Select Fabric</option>
+                                    {% for x in fabric%}
+                                    <option value="{{x.0}}">{{x.1}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center" >
+                            <div class="col-8" style="border: 1px solid rgb(255, 255, 255);">
+                                <p>Embroidery Staus</p>
+                               <hr style="background-color: white;">
+                                <div class="d-flex ">
+                                    <div class="form-check">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="IsKameezFront" Name="IsKameezFront">
+                                            <label class="custom-control-label" for="IsKameezFront">Kameez Front
+                                           </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex ">
+                                    <div class="form-check">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="IsKameezBack" Name="IsKameezBack">
+                                            <label class="custom-control-label" for="IsKameezBack">Kameez back</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex ">
+                                    <div class="form-check">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="IsDupatta" id="IsDupatta">
+                                            <label class="custom-control-label" for="IsDupatta">Dupatta</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex ">
+                                    <div class="form-check">
+                                        <div class="custom-control custom-checkbox">
+                                            <input value="True" type="checkbox" class="custom-control-input" id="IsShalwar" Name="IsShalwar">
+                                            <label class="custom-control-label" for="IsShalwar">Shalwar</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                            
+                    </div>
+                </div>
+                    <div class="row mt-5">
+                        <div class="col d-flex justify-content-center">
+                            <button type="submit" class="btn btn-outline-light btn-lg col-8">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                
+
+
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

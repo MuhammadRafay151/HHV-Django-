@@ -1,0 +1,46 @@
+﻿{% extends 'app/layout.html' %}
+
+{% block content %}
+<style>
+    .dhcol {
+        height: 440px;
+        
+        color: white ;
+        Background:white;
+        margin:3px
+    }
+</style>
+{% load static %}
+<div class="container-fluid">
+    <div class="row">
+    <div class="col col-md dhcol d-flex align-items-center justify-content-center">
+       <a href="#">
+           <img src=" {% static '/DashBoard/images/home.png' %} " width="200"/>
+       </a>
+    </div>
+      <div class="col col-md dhcol d-flex align-items-center justify-content-center">
+       <a href="#">
+           <img src=" {% static '/DashBoard/images/images.png' %} "/>
+       </a>
+    </div>
+     <div class="col col-md dhcol d-flex align-items-center justify-content-center">
+       <a href="#">
+           <img src=" {% static '/DashBoard/images/modern-shopping-cart-logo-5E95C07Ass18-seeklogo.com.png' %} "/>
+       </a>
+    </div>
+</div>
+<div class="row">
+   
+     <div class="col col-md dhcol d-flex align-items-center justify-content-center">
+       <a href="#">
+           <img src=" {% static '/DashBoard/images/ssswees22.png' %} " width="200"/>
+       </a>
+    </div>
+      <div class="col col-md dhcol d-flex align-items-center justify-content-center">
+       <a href="#">
+           <img src=" {% static '/DashBoard/images/ss333.png' %}" width="200"/>
+       </a>
+    </div>
+</div>
+</div>
+{% endblock %}
