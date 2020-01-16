@@ -8,7 +8,7 @@ label,p{
 <div class="container">
     <div class="row vh-100 ">
         <div class="col align-self-center">
-            <form action="/Products/SubmitProduct/" method="POST">
+            <form action="/Products/SubmitProduct/" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="row justify-content-center">
                     <div class="col-4">
@@ -22,7 +22,7 @@ label,p{
                         <div class="d-flex justify-content-center">
                            <div class="form-group col-8">
                                 <label for="ds">Designs</label>
-                                <select class="form-control"  required id="ds" name="Design">
+                                <select class="form-control"  required id="Design" name="Design">
                                     <option selected disabled value="">Select Designs</option>
                                     {% for x in Designs%}
                                     <option value="{{x.0}}">{{x.1}}</option>
@@ -93,7 +93,7 @@ label,p{
                             <div class="form-group col-8">
                                 <label for="DFabric">Dupatta Fabric</label>
                                 <select name="DFabric" id="DFabric" class="form-control" required >
-                                    <option selected disabled value>Select Fabric</option>
+                                    <option selected disabled value="">Select Fabric</option>
                                     {% for x in fabric%}
                                     <option value="{{x.0}}">{{x.1}}</option>
                                     {% endfor %}
@@ -142,10 +142,24 @@ label,p{
                        
                             
                     </div>
+                    <div class="col">
+                        {% load static %}
+                        <div class="d-flex justify-content-center">
+                             <img id="image" src="{% static 'mark.jpg' %}" width="250"/>
+                            
+                        </div>
+                       <div class="d-flex justify-content-center mt-3">
+                             <input type="file" name="Image" class="d-none" id="s1" />
+                           <div id="f1" class="btn btn-block btn-warning">Upload</div> 
+                       </div>
+                        
+                    </div>
+
                 </div>
                     <div class="row mt-5">
                         <div class="col d-flex justify-content-center">
-                            <button type="submit" class="btn btn-outline-light btn-lg col-8">
+                           
+                            <button type="submit"  class="btn btn-outline-light btn-lg col-8">
                                 Submit
                             </button>
                         </div>
@@ -158,4 +172,14 @@ label,p{
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $('#f1').click(function () {
+            $('#s1').trigger('click');
+        })
+        $('#s1').change(function () {
+               $('#image').attr('src',URL.createObjectURL(this.files[0]));
+        })
+    })
+</script>
 {% endblock %}

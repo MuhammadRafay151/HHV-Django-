@@ -1,27 +1,20 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponse
-from .test import database
-from .Forms import TestForm
-
-
+from django.http import HttpResponseRedirect, HttpResponse,JsonResponse
+from .DataBase import database
+from . import Forms
+from .models import *
+import json
+from Products.ProductBusinessLayer import ProductBusinessLayer
 # from DB import test
 
 # Create your views here.
 
 def ViewProduct(request):
-    t1 = database()
-    Querry='''select Product.[Product Name],Designs.DesignName ,Product.[Number Of Pieces]
-,Product.[Quantity in Stock],Product.[Product Price],Color.color
-,x.Fabric,y.Fabric,Fabric.Fabric,Product.IsKameezFrontEmbroided,Product.IsKameezBackEmbroided
-,Product.IsDupattaEmbroided,Product.IsShalwarEmbroided from Product inner join color on Color.id=Product.Color 
-inner join Designs on Product.[Design Code]=Designs.DesignCode
-inner join 
-Fabric  on Fabric.id=Product.[Dupatta Fabric]inner join 
-Fabric as x on x.id=Product.[Kameez Fabric]inner join 
-Fabric as y on y.id=Product.[Shalwar Fabric]'''
-    products = t1.read(Querry)
-    return render(request, 'Products/ViewProducts.html',{'Products':products})
-
+   
+    p1=ProductBusinessLayer()
+    data=p1.GetProductList()
+    print(data[0])
+    return render(request, 'Products/View_Products.html',{'data':data,'range1':range(3),'range2':range(5)})
 
 def AddProducts(request):
     t1 = database()
@@ -29,35 +22,31 @@ def AddProducts(request):
     fabrics = t1.read("select * from fabric")
     Designs = t1.read("select * from designs")
     return render(request, 'Products/AddProducts.html', {'data': color, 'fabric': fabrics, 'Designs': Designs})
-
+def Image(request):
+    if(request.GET.get("id")!=""):
+       p1=Product()
+       img=p1.GetProductImage(request.GET.get("id"))
+       
+       return HttpResponse(img[1], content_type="image/jpg")
+    else:
+        raise Http404("Poll does not exist")
+def ProductDetails(request):
+   p1=Product()
+   x=request.GET.get("id")
+   p1.LoadDetails(x) 
+   return JsonResponse(p1.__dict__,safe=False)
 
 def SubmitProduct(request):
     if request.method == 'POST':
-        # form = Product(request.POST)
-        PName = request.POST.get('PName')
-        Design = request.POST.get('Design')
-        NPieces = request.POST.get('NPieces')
-        Qstock = request.POST.get('Qstock')
-        Price = request.POST.get('Price')
-        color = request.POST.get('color')
-        KFabric = request.POST.get('KFabric')
-        SFabric = request.POST.get('SFabric')
-        DFabric = request.POST.get('DFabric')
-        IsKameezFront = bool(request.POST.get('IsKameezFront', False))
-        IsKameezBack = bool(request.POST.get('IsKameezBack', False))
-        IsDupatta = bool(request.POST.get('IsDupatta', False))
-        IsShalwar = bool(request.POST.get('IsShalwar', False))
-        t1 = database()
-        querry='''insert into Product([Product Name],[Design Code],[Number Of Pieces]
-,[Quantity in Stock],[Product Price],Color,[Kameez Fabric],[Shalwar Fabric],
-[Dupatta Fabric],IsKameezFrontEmbroided,IsKameezBackEmbroided
-,IsDupattaEmbroided,IsShalwarEmbroided
-) values('{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}')'''.format(PName,Design,NPieces,Qstock,Price,color,KFabric,SFabric,DFabric,IsKameezFront
-  ,IsKameezBack,IsDupatta,IsShalwar)
-        t1.Insert(querry)
-        return HttpResponseRedirect('/Products/AddProducts')
+        form=Forms.Product(request.POST, request.FILES)
+        if form.is_valid():
+            p1=Product()
+            p1.InsertProduct(form)
+            return HttpResponseRedirect('/Products/AddProducts')
+        else:
+            return HttpResponse("Some thing going wrong try again later")
 
-
+        
     else:
         return HttpResponseRedirect('/Products/AddProducts')
 

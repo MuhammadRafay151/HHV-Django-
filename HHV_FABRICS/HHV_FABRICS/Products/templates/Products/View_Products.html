@@ -1,0 +1,182 @@
+﻿{% extends 'app/layout.html' %}
+{% block content %}
+{% load static %}
+<div class="modal fade" id="pro" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                <table class="table">
+                    <tr>
+                        <th class="text-info" scope="row">Product Name</th>
+                        <td id="Pname"></td>
+                    </tr>
+                    <tr>
+
+                        <th class="text-info" scope="row">Design</th>
+                        <td  id="Ds"></td>
+                    </tr>
+                    <tr>
+                        <th class="text-info" scope="row">Color</th>
+                        <td id="Co"></td>
+                    </tr>
+                    <tr>
+                        <th class="text-info" scope="row">Pieces</th>
+                        <td id="Np"></td>
+                    </tr>
+                    <tr>
+                        <th class="text-info" scope="row">Stock</th>
+                        <td id="Qs"></td>
+                    </tr>
+                    <tr>
+                        <th class="text-info" scope="row">Pieces</th>
+                        <td id="Pr"></td>
+                    </tr>
+                    <tr>
+                        <th class="text-info" scope="row">Kameez Fabric</th>
+                        <td id="Kf"></td>
+                    </tr>
+                    <tr>
+                        <th class="text-info" scope="row">Shalwar Fabric</th>
+                        <td id="Sf"></td>
+                    </tr>
+                    <tr>
+                        <th class="text-info" scope="row">Dupatta Fabric</th>
+                        <td id="Df"></td>
+                    </tr>
+                    <tr>
+                        <th class="text-info" scope="row">Embroided Front</th>
+                        <td id="If"></td>
+                    </tr>
+                    <tr>
+                        <th class="text-info" scope="row">Embroided Back</th>
+                        <td id="Ib"></td>
+                    </tr>
+                    <tr>
+                        <th class="text-info" scope="row">Embroided Dupatta</th>
+                        <td id="Id"></td>
+                    </tr>
+                    <tr>
+                        <th class="text-info" scope="row">Embroided Shalwar</th>
+                        <td id="Is"></td>
+                    </tr>
+                </table>
+                <h4 id="Id"></h4>
+                 <h4 id="Is"></h4>
+                </div>
+                <div class="col">
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="col d-flex justify-content-center">
+                                <div style="width:240px;height:350px">
+                                    <img src="" id="mimg" style="width:100%" />
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col d-flex justify-content-center">
+                                <label>Quantity:</label>
+                                <input id="qty" class="ml-1" type="number">
+                                
+                            </div>
+                            
+                            
+                            
+                       
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <h3 id="mes" class="text-success " style="text-align: center;"></h3>
+                        </div>
+                     </div>
+                    
+                </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="ad" data-proid="" type="button" class="btn btn-info">Add to cart</button>
+                <button  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<div class="container-fluid" style="margin-top:20px">
+  
+
+    
+    
+   
+      {% for i in data %}
+        <div class="row">
+                {%for j in i %}
+                <div class="d-flex col justify-content-center">
+                   {% include 'Products/Product.html' with pro=j %}
+                </div>
+           {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+<script>
+    $(document).ready(function () {
+        $(".popup").click(function () {
+              var id = $(this).data('pro');
+              $('#ad').data('proid',id)
+              var imgid = $(this).data('img');
+              $('#mes').html('');
+            $.ajax(
+                {
+                    url: "/Products/ProductDetails?id=" + id,
+                    success: function (result) {
+                        $('#Pname').html(result.PName);
+                        $('#Ds').html(result.Design);
+                        $('#Co').html(result.color);
+                        $('#Np').html(result.NPieces);
+                        $('#Qs').html(result.Qstock);
+                        $('#Pr').html(result.Price);
+                        $('#Kf').html(result.KFabric);
+                        $('#Sf').html(result.SFabric);
+                        $('#Df').html(result.DFabric);
+                        $('#If').html(""+result.IsKameezFront);
+                        $('#Ib').html(""+result.IsKameezBack);
+                        $('#Id').html(""+result.IsDupatta);
+                        $('#Is').html(""+result.IsShalwar);
+                        $('#mimg').attr('src', '/Products/Image?id=' + imgid);
+                    }
+                });
+            
+        });
+        $('#ad').click(function () {
+         pid=$(this).data('proid');
+         Qty=$('#qty').val();
+         if(Qty>0)
+         {
+            $.ajax(
+                {
+                    url: `/Cart/Add/?Pid=${pid}&Qty=${Qty}`,
+                    success: function (result) {
+                        $('#qty').val(0)
+                        $('#mes').html(result.Mes);
+                        $('#mes').show();
+                    },
+                   
+                });
+         }
+         
+         else
+         alert("Quantity must be greater than 0");
+          
+        });
+    });
+</script>
+
+{% endblock %}
+

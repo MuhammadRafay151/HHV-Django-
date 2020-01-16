@@ -31,6 +31,16 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Account\admin.py" />
+    <Compile Include="Account\apps.py" />
+    <Compile Include="Account\UserBusinessLayer.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Account\migrations\__init__.py" />
+    <Compile Include="Account\models.py" />
+    <Compile Include="Account\tests.py" />
+    <Compile Include="Account\views.py" />
+    <Compile Include="Account\__init__.py" />
     <Compile Include="app\forms.py" />
     <Compile Include="app\models.py" />
     <Compile Include="app\tests.py" />
@@ -49,8 +59,14 @@
     <Compile Include="DashBoard\__init__.py" />
     <Compile Include="Login\admin.py" />
     <Compile Include="Login\apps.py" />
+    <Compile Include="Login\form.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Login\migrations\__init__.py" />
     <Compile Include="Login\models.py" />
+    <Compile Include="Login\urls.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Login\tests.py" />
     <Compile Include="Login\views.py" />
     <Compile Include="Login\__init__.py" />
@@ -66,7 +82,10 @@
     </Compile>
     <Compile Include="Products\migrations\__init__.py" />
     <Compile Include="Products\models.py" />
-    <Compile Include="Products\test.py">
+    <Compile Include="Products\ProductBusinessLayer.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Products\DataBase.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Products\tests.py" />
@@ -77,6 +96,10 @@
     <Compile Include="Products\__init__.py" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Account\" />
+    <Folder Include="Account\migrations\" />
+    <Folder Include="Account\templates\" />
+    <Folder Include="Account\templates\Account\" />
     <Folder Include="app\" />
     <Folder Include="app\migrations\" />
     <Folder Include="app\static\" />
@@ -98,23 +121,40 @@
     <Folder Include="Login\migrations\" />
     <Folder Include="Login\templates\" />
     <Folder Include="Login\templates\Login\" />
+    <Folder Include="Images\" />
     <Folder Include="Products\" />
     <Folder Include="Products\migrations\" />
     <Folder Include="Products\templates\" />
     <Folder Include="Products\templates\Products\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Account\templates\Account\index.html" />
+    <Content Include="bootstrap.css" />
+    <Content Include="DashBoard\static\DashBoard\Images\Aamir.jpg" />
     <Content Include="DashBoard\static\DashBoard\Images\home.png" />
     <Content Include="DashBoard\static\DashBoard\Images\images.png" />
+    <Content Include="DashBoard\static\DashBoard\Images\LOGO2.png" />
     <Content Include="DashBoard\static\DashBoard\Images\modern-shopping-cart-logo-5E95C07Ass18-seeklogo.com.png" />
+    <Content Include="DashBoard\static\DashBoard\Images\photo-1503023345310-bd7c1de61c7d.jpg" />
     <Content Include="DashBoard\static\DashBoard\Images\ss333.png" />
     <Content Include="DashBoard\static\DashBoard\Images\ssswees22.png" />
+    <Content Include="DashBoard\static\DashBoard\Images\Ismail.jpg" />
+    <Content Include="DashBoard\static\DashBoard\Images\Rafay.jpg" />
+    <Content Include="DashBoard\static\DashBoard\Images\Sabih.jpg" />
+    <Content Include="DashBoard\static\DashBoard\Images\Umair.jpg" />
+    <Content Include="DashBoard\static\DashBoard\Images\web_banner_2_les.jpg" />
+    <Content Include="DashBoard\templates\DashBoard\About.html" />
+    <Content Include="DashBoard\templates\DashBoard\Index.html" />
+    <Content Include="Images\LOGO2.png" />
+    <Content Include="Images\mark.jpg" />
     <Content Include="Login\templates\Login\index.html" />
     <Content Include="Products\templates\Products\AddProducts.html" />
     <Content Include="DashBoard\templates\DashBoard\DashBoard.html" />
     <Content Include="Products\templates\Products\form.html" />
     <Content Include="Products\templates\Products\index.html" />
     <Content Include="Products\templates\Products\ViewProducts.html" />
+    <Content Include="Products\templates\Products\View_Products.html" />
+    <Content Include="Products\templates\Products\Product.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />
