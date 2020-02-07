@@ -16,5 +16,6 @@ urlpatterns = [
     path('',ds.index),
     path('Account/',include("Account.urls")),
     path('Dashboard/',include('DashBoard.urls')),
-    path('Cart/',include('Cart.urls'))
+    path('Cart/',include('Cart.urls')),
+    path('Order/',include('Order.urls')),
 ]

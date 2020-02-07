@@ -63,4 +63,16 @@ class Cart:
         d1=database()
         x=d1.Insert(querry,data)
         return None
-    
+    def CheckQty(self,uid):
+        list=[]
+       
+        querry='''Select Cart.ProductId,Cart.Qunatity,Product.[Product ID],Product.[Quantity in Stock],Product.[Product Name] from Cart inner join Product on Product.[Product ID]=Cart.ProductId where UserId={}'''.format(uid)
+        d1=database()
+        x=d1.read(querry)
+        for i in x:
+            if i[1]>i[3]:
+                list2=[]
+                list2.append(i[4])
+                list2.append("Only {} pieces available in stock".format(i[3]))
+                list.append(list2)
+        return list        

@@ -28,19 +28,15 @@
               <a class="nav-link" href="/Products/">View Products</a>
             </li>
               {% endif %}
-              {% if request.session.User  %}
+              {% if request.session.User and request.session.IsAdmin  %}
               <li class="nav-item">
               <a class="nav-link " href="/Products/AddProducts/">Add Products</a>
             </li>
               {% endif %}
+             
               {% if  request.session.User  %}
               <li class="nav-item">
-                  <a class="nav-link" href="/Cart/showcart">View Cart</a>
-              </li>
-              {% endif %}
-              {% if  request.session.User  %}
-              <li class="nav-item">
-                  <a class="nav-link" href="/Account/logoff">Logout</a>
+                  <a class="nav-link" href="/Order/">View Orders</a>
               </li>
               {% endif %}
               {% if not request.session.User  %}
@@ -54,7 +50,30 @@
               </li>
               {% endif %}
           </ul>
+          {% if  request.session.User %}
+          <div class=" my-2 my-lg-0">
+            <a href="/Cart/showcart"><img class="mt-2 mr-2" width="45" src="{% static 'modern-shopping-cart-logo-5E95C07A18-seeklogo.com.png' %}" alt=""></a>
+            <div class="btn-group">
+              <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img width="35" src="{% static 'ssswees22.png' %}"></a>
+              <div class="dropdown-menu dropdown-menu-right">
+
+                <div class="card" style="width: 18rem;">
+                  <img class="card-img-top" src="/Products/Image?id={{request.session.ImgId}}" alt="Card image cap">
+                  <!-- <div class="card-body">
+                  </div> -->
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Name: {{ request.session.Name }}</li>
+                  </ul>
+                  <div class="card-body">
+                    <a class="card-link" href="/Account/logoff">Logout</a>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
           
+          </div>
+          {% endif %}
         </div>
       </nav>
 

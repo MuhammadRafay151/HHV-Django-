@@ -74,7 +74,7 @@
                             <h3 class="card-title">Sign Up</h3>
                         </div>
                         <div class="card-body">
-                            <form action="/Account/signup" method="post">
+                            <form action="/Account/signup/" method="post" enctype="multipart/form-data">
                                  {% csrf_token %}
                                 <div class="row">
                                     <div class="col">
@@ -94,7 +94,7 @@
                                     <label class="">Password</label>
                                     <input name="Password" class="form-control"required type="password" />
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                   <label for="color">Account Type</label>
                                    <select class="form-control" required id="color" name="color">
                                       <option selected disabled>Select Account Type</option>
@@ -102,8 +102,8 @@
                                      <option value="{{x.0}}">{{x.1}}</option>
                                     {% endfor %}
                                    </select>
-                                </div>
-                                <div class="form-group">
+                                </div> -->
+                                <!-- <div class="form-group">
                                   <label for="dealer">Dealer Type</label>
                                    <select class="form-control" required id="dl" name="dealer">
                                       <option selected disabled>Select Dealer Type</option>
@@ -111,7 +111,7 @@
                                      <option value="{{x.0}}">{{x.1}}</option>
                                     {% endfor %}
                                    </select>
-                                </div>
+                                </div> -->
                                     </div>
                                     <div class="col">
                                          {% load static %}
@@ -120,7 +120,7 @@
                             
                                       </div>
                                       <div class="d-flex justify-content-center mt-3">
-                                          <input type="file" name="Image" class="d-none" id="s1" />
+                                          <input type="file" required name="Image" class="d-none" id="s1" />
                                          <div id="f1" class="btn btn-block btn-warning">Upload</div> 
                                       </div>
                                     </div>

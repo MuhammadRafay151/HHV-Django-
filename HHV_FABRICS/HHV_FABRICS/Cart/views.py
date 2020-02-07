@@ -43,3 +43,7 @@ def CkOut(request):
     c1=Cart()
     c1.checkoutcart(request.session.get('User'))
     return redirect('/Cart/showcart/')
+def CkQty(request):
+    c1=Cart()
+    x=c1.CheckQty(request.session.get('User'))
+    return JsonResponse(x,safe=False)

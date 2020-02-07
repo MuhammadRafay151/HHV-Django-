@@ -13,15 +13,18 @@ def ViewProduct(request):
    
     p1=ProductBusinessLayer()
     data=p1.GetProductList()
-    print(data[0])
     return render(request, 'Products/View_Products.html',{'data':data,'range1':range(3),'range2':range(5)})
 
 def AddProducts(request):
-    t1 = database()
-    color = t1.read("select * from color")
-    fabrics = t1.read("select * from fabric")
-    Designs = t1.read("select * from designs")
-    return render(request, 'Products/AddProducts.html', {'data': color, 'fabric': fabrics, 'Designs': Designs})
+    if('IsAdmin'in request.session and request.session['IsAdmin']==True):
+          t1 = database()
+          color = t1.read("select * from color")
+          fabrics = t1.read("select * from fabric")
+          Designs = t1.read("select * from designs")
+          return render(request, 'Products/AddProducts.html', {'data': color, 'fabric': fabrics, 'Designs': Designs})
+    else:
+        return HttpResponseRedirect('/')
+   
 def Image(request):
     if(request.GET.get("id")!=""):
        p1=Product()

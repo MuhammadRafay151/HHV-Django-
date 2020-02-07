@@ -1,29 +1,5 @@
 {% extends 'app/layout.html' %}
 {% block content %}
-<!-- checkout -->
-<div class="modal fade" id="ckm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="d-flex justify-content-center">
-                    <h3 id="bill">Total bill</h3>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
-                <button id="sb" type="button" class="btn btn-primary">Submit Order</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end -->
 <div class="modal fade" id="pro" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -104,28 +80,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col d-flex justify-content-center">
-                                    <label>Quantity:</label>
-                                    <input id="qty" class="ml-1" type="number">
-
-                                </div>
-
-
-
-
-                            </div>
-                            <div class="d-flex justify-content-center">
-                                <h3 id="mes" class="text-success " style="text-align: center;"></h3>
-                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="up" data-proid="" type="button" class="btn btn-info">Update</button>
-                <button id="del" data-proid="" type="button" class="btn btn-info">Remove from cart</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
             </div>
@@ -139,17 +98,8 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col">
-                            <h3 class="card-title ">Shopping Cart</h3>
+                            <h3 class="card-title ">Details</h3>
                         </div>
-                        {% if data %}
-                        <div class="col d-flex justify-content-end">
-                            <div class="btn-group">
-                                <button id="ck" type="button" class="btn btn-primary">CheckOut</button>
-                                <button id="reset" type="button" class="btn btn-primary">Reset Cart</button>
-
-                            </div>
-                        </div>
-                        {% endif %}
                     </div>
 
 
@@ -176,13 +126,13 @@
                             <tr>
 
                                 <td class="text-center ">
-                                    {{i.1}}
-                                </td>
-                                <td id="qt" class="text-center ">
                                     {{i.2}}
                                 </td>
+                                <td id="qt" class="text-center ">
+                                    {{i.3}}
+                                </td>
                                 <td class="text-center align-middle">
-                                    <button data-toggle="modal" data-target="#pro" data-img="{{i.3}}" data-pro="{{i.0}}"
+                                    <button data-toggle="modal" data-target="#pro" data-img="{{i.1}}" data-pro="{{i.0}}"
                                         class="btn btn-primary det">Details</button>
                                 </td>
 
@@ -192,7 +142,7 @@
                         </tbody>
                     </table>
                     {% else %}
-                    <h1 class="text-center">Empty Cart</h1>
+                    <h1 class="text-center">No Orders found</h1>
                     {% endif %}
                 </div>
             </div>
@@ -201,15 +151,9 @@
 </div>
 <script>
     $(document).ready(function () {
-        var check = false;
         $(".det").click(function () {
             var id = $(this).data('pro');
-            $('#up').data('proid', id)
-            $('#del').data('proid', id)
             var imgid = $(this).data('img');
-            var qty = parseInt(document.getElementById("table").rows[this.parentNode.parentNode.rowIndex].cells[1].innerHTML);
-            $('#qty').val(qty);
-
             $.ajax(
                 {
                     url: "/Products/ProductDetails?id=" + id,
@@ -219,7 +163,7 @@
                         $('#Co').html(result.color);
                         $('#Np').html(result.NPieces);
                         $('#Qs').html(result.Qstock);
-                        $('#Pr').html(result.Price);
+                        $('#Pr').html(result.Price+" Rs");
                         $('#Kf').html(result.KFabric);
                         $('#Sf').html(result.SFabric);
                         $('#Df').html(result.DFabric);
@@ -232,60 +176,6 @@
                     }
                 });
 
-        });
-        $('#up').click(function () {
-            var id = $(this).data('proid');
-            var qty = $('#qty').val();
-            window.location.href = `/Cart/Updatecart/?Pid=${id}&Qty=${qty}`
-            // $.ajax(
-            //         {
-            //              url: `/Cart/Updatecart/?Pid=${id}&Qty=${qty}`,
-            //             success: function (result) {
-            //                 $('#mes').html(result.Mes);
-            //                 $('#mes').show();
-            //             },
-
-            //         });
-        });
-        $('#del').click(function () {
-            var id = $(this).data('proid');
-            window.location.href = `/Cart/Remove/?Pid=${id}`
-        });
-        $('#reset').click(function () {
-            window.location.href = "/Cart/Deletecart/";
-        });
-        $('#ck').click(function () {
-            $.ajax(
-                {
-                    url: "/Cart/CkQty/",
-                    success: function (result) {
-
-                        if (result.length == 0) {
-                            check = true;
-                            if (check == true) {
-                                $.ajax(
-                                    {
-                                        url: "/Cart/CBill/",
-                                        success: function (result) {
-                                            $('#bill').html(result);
-                                            $('#ckm').modal('show');
-                                        }
-
-                                    })
-                                $('#ck').show();
-                            } else {
-                                $('#ck').hide();
-                            }
-                        }
-
-                    }
-
-                })
-
-
-        });
-        $('#sb').click(function () {
-            window.location.href = "/Cart/Ckout/";
         });
     });
 </script>
